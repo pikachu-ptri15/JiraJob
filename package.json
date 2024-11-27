@@ -1,12 +1,21 @@
 {
   "name": "demo-repository",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "npm --prefix server run start",
+    "client": "npm --prefix client run start",
+    "build": "npm run build-client && npm run build-server",
+    "build-client": "npm --prefix client run build",
+    "build-server": "npm --prefix server run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "concurrently": "^9.1.0"
+  }
 }
