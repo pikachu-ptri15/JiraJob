@@ -13,7 +13,7 @@ const Modal: React.FC<ModalProps> = ({ isVisible, onClose, addJob }) => {
   return (
     <div style={styles.modalOverlay}>
       <div style={styles.modal}>
-        <NewJob addJob={addJob}/>
+        <NewJob addJob={addJob} onClose={onClose}/>
         <button style={styles.closeButton} onClick={onClose}>
           Close
         </button>

@@ -2,9 +2,10 @@ import React, {useState} from "react";
 
 type NewJobProps = {
     addJob: (newJob: { jobTitle: string; companyName: string; location: string, notes: string }) => void;
+    onClose: () => void;
 };
 
-const NewJob: React.FC<NewJobProps> = ({addJob}) => {
+const NewJob: React.FC<NewJobProps> = ({addJob, onClose}) => {
     const [formData, setFormData] = useState({
         companyName: "",
         jobTitle: "",
@@ -26,6 +27,7 @@ const NewJob: React.FC<NewJobProps> = ({addJob}) => {
         if (formData.jobTitle && formData.companyName && formData.location && formData.notes) {
           addJob(formData); // Pass the job data to the parent
           setFormData({ jobTitle: '', companyName: '', location: '', notes: '' }); // Clear inputs
+          onClose();
         } else {
           alert('Please fill out all fields.');
         }
