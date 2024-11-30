@@ -1,50 +1,34 @@
-import React, { useState } from "react";
-import Column from "./progressColumn"; // Importing the Column component
-import Modal from "./Modal"; // Importing the Modal component
+import React, {useState} from 'react';
+import NewJob from './NewJob';
+import JobDisplay from './JobDisplay';
+import './JobDisplay.css';
 
 const App: React.FC = () => {
-  const [isModalVisible, setIsModalVisible] = useState(false);
+    const [jobs, setJobs] = useState<{ jobTitle: string; companyName: string; location: string, notes: string }[]>([]);
 
-  const showModal = () => setIsModalVisible(true);
-  const hideModal = () => setIsModalVisible(false);
+    const addJob = (newJob: { jobTitle: string; companyName: string; location: string, notes: string}) => {
+        setJobs([...jobs, newJob]);
+    };
 
-  return (
-    <div style={styles.container}>
-      {/* Top White Space (20% of screen height) */}
-      <div style={styles.topSpace}></div>
 
-      {/* Button to open the Modal, aligned to the left with 2% space */}
-      <div style={styles.buttonContainer}>
-        <button style={styles.modalButton} onClick={showModal}>
-          Open Modal
-        </button>
-      </div>
 
-      {/* Modal */}
-      <Modal isVisible={isModalVisible} onClose={hideModal} />
-
-      {/* Columns container (fills remaining space) */}
-      <div style={styles.columnsContainer}>
-        <Column>
-          <div style={styles.item}>Column 1 - Item 1</div>
-          <div style={styles.item}>Column 1 - Item 2</div>
-          <div style={styles.item}>Column 1 - Item 3</div>
-        </Column>
-
-        {/* Empty Column */}
-        <Column>
-          {/* Empty */}
-        </Column>
-
-        <Column>
-          <div style={styles.item}>Column 3 - Item 1</div>
-        </Column>
-      </div>
-
-      {/* Bottom White Space (5% of screen height) */}
-      <div style={styles.bottomSpace}></div>
-    </div>
-  );
+    return (
+        <div>
+            <h1>Job List</h1>
+            <NewJob addJob={addJob}/>
+            <div className="job-list">
+                {jobs.map((job, index) => (
+                    <JobDisplay 
+                    key={index}
+                    companyName={job.companyName}
+                    jobTitle={job.jobTitle}
+                    location={job.location}
+                    notes={job.notes}
+                    />
+                ))}
+            </div>
+        </div>
+    );
 };
 
 const styles: { [key: string]: React.CSSProperties } = {

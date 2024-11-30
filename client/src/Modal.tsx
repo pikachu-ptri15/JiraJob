@@ -1,4 +1,5 @@
 import React from "react";
+import NewJob from './NewJob';
 
 interface ModalProps {
   isVisible: boolean;
@@ -10,11 +11,11 @@ const Modal: React.FC<ModalProps> = ({ isVisible, onClose }) => {
 
   return (
     <div style={styles.modalOverlay}>
+      <NewJob addJob={addJob}/>
       <div style={styles.modal}>
         <button style={styles.closeButton} onClick={onClose}>
           Close
         </button>
-        <div>This is the Modal content!</div>
       </div>
     </div>
   );
