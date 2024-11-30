@@ -1,18 +1,20 @@
-import React from "react";
-import NewJob from './NewJob';
+import React, {useState} from "react";
+import NewJob from "./NewJob";
 
 interface ModalProps {
   isVisible: boolean;
   onClose: () => void;
+  addJob: (newJob: { jobTitle: string; companyName: string; location: string, notes: string }) => void;
 }
 
-const Modal: React.FC<ModalProps> = ({ isVisible, onClose }) => {
+const Modal: React.FC<ModalProps> = ({ isVisible, onClose, addJob }) => {
   if (!isVisible) return null;
 
   return (
     <div style={styles.modalOverlay}>
       <NewJob addJob={addJob}/>
       <div style={styles.modal}>
+        <NewJob addJob={addJob}/>
         <button style={styles.closeButton} onClick={onClose}>
           Close
         </button>

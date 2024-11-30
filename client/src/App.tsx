@@ -1,21 +1,42 @@
-import React, {useState} from 'react';
+import React, { useState } from "react";
+import Column from "./progressColumn"; // Importing the Column component
+import Modal from "./Modal"; 
 import NewJob from './NewJob';
 import JobDisplay from './JobDisplay';
 import './JobDisplay.css';
 
+
 const App: React.FC = () => {
+    const [isModalVisible, setIsModalVisible] = useState(false);
+
+    const showModal = () => setIsModalVisible(true);
+    const hideModal = () => setIsModalVisible(false);
+
     const [jobs, setJobs] = useState<{ jobTitle: string; companyName: string; location: string, notes: string }[]>([]);
 
     const addJob = (newJob: { jobTitle: string; companyName: string; location: string, notes: string}) => {
         setJobs([...jobs, newJob]);
     };
 
-
-
     return (
-        <div>
-            <h1>Job List</h1>
-            <NewJob addJob={addJob}/>
+        <div style={styles.container}>
+      {/* Top White Space (20% of screen height) */}
+      <div style={styles.topSpace}></div>
+
+      {/* Button to open the Modal, aligned to the left with 2% space */}
+      <div style={styles.buttonContainer}>
+        <button style={styles.modalButton} onClick={showModal}>
+          Open Modal
+        </button>
+      </div>
+
+      {/* Modal */}
+      <Modal isVisible={isModalVisible} onClose={hideModal} addJob={addJob}/>
+
+      {/* Columns container (fills remaining space) */}
+      <div style={styles.columnsContainer}>
+        <Column>
+            <h1>Applied</h1>
             <div className="job-list">
                 {jobs.map((job, index) => (
                     <JobDisplay 
@@ -27,8 +48,22 @@ const App: React.FC = () => {
                     />
                 ))}
             </div>
-        </div>
-    );
+        </Column>
+
+        {/* Empty Column */}
+        <Column>
+            <h1>Interviewing</h1>
+        </Column>
+
+        <Column>
+            <h1>Outcome</h1>
+        </Column>
+      </div>
+
+      {/* Bottom White Space (5% of screen height) */}
+      <div style={styles.bottomSpace}></div>
+    </div>
+  );
 };
 
 const styles: { [key: string]: React.CSSProperties } = {
