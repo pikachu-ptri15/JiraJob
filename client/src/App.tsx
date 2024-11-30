@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Column from "./progressColumn"; // Importing the Column component
+import Column from "./progressColumn";
 import Modal from "./Modal"; 
 import NewJob from './NewJob';
 import JobDisplay from './JobDisplay';

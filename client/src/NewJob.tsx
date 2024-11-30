@@ -25,8 +25,8 @@ const NewJob: React.FC<NewJobProps> = ({addJob, onClose}) => {
     //should all fields be required?
     const handleAddJob = () => {
         if (formData.jobTitle && formData.companyName && formData.location && formData.notes) {
-          addJob(formData); // Pass the job data to the parent
-          setFormData({ jobTitle: '', companyName: '', location: '', notes: '' }); // Clear inputs
+          addJob(formData); 
+          setFormData({ jobTitle: '', companyName: '', location: '', notes: '' });
           onClose();
         } else {
           alert('Please fill out all fields.');
