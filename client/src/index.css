@@ -6,7 +6,7 @@ body {
 }
 
 .loginWrapper {
-  background-color: grey;
+  background-color: rgb(255, 255, 255);
   position: absolute;
   width: 100%;
   height: 100%;
@@ -16,18 +16,23 @@ body {
 .loginCenter {
   width: 340px;
   height: fit-content;
-  /* background-color: yellow; */
   justify-self: center;
   align-self: center;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: min-content 1fr min-content;
+  position: relative;
+  bottom: 35px;
+}
+
+.loginMoreOffset {
+  bottom: 40px;
 }
 
 .loginCenterInfo {
   width: 100%;
   height: fit-content;
-  background-color: red;
+  background-color: #4CAF50;
   justify-self: center;
   align-self: center;
 }

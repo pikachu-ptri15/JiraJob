@@ -24,7 +24,7 @@ const SignUp: React.FC = (props: Props) => {
 
   return (
     <div className='loginWrapper'>
-      <div className='loginCenter'>
+      <div className='loginCenter loginMoreOffset'>
         <div className='loginHeader'>Welcome to JiraJob</div>
         <div className='loginCenterInfo'>
           <div className='loginCenterLoginHeader'>Sign Up</div>
