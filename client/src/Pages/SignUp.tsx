@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+
 type Props = {};
 
 const SignUp: React.FC = (props: Props) => {
