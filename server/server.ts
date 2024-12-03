@@ -1,11 +1,11 @@
-const express = require('express');
+import * as express from "express";
+import * as path from 'path';
+import * as cors from 'cors';
+import * as cookieParser from 'cookie-parser';
+import * as dotenv from "dotenv";
+
+dotenv.config({ path: __dirname+'/.env' });
 const app = express();
-
-const path = require('path');
-const cors = require('cors');
-const cookieParser = require('cookie-parser');
-require('dotenv').config();
-
 app.use(cors());
 app.use(cookieParser());
 app.use(express.json({ limit: '10mb' }));
