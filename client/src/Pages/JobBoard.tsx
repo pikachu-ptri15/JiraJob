@@ -12,9 +12,9 @@ const JobBoard: React.FC = () => {
     const showModal = () => setIsModalVisible(true);
     const hideModal = () => setIsModalVisible(false);
 
-    const [jobs, setJobs] = useState<{ jobTitle: string; companyName: string; location: string, notes: string }[]>([]);
+    const [jobs, setJobs] = useState<{ jobTitle: string; companyName: string; location: string, notes: string, time: number }[]>([]);
 
-    const addJob = (newJob: { jobTitle: string; companyName: string; location: string, notes: string}) => {
+    const addJob = (newJob: { jobTitle: string; companyName: string; location: string, notes: string, time: number}) => {
         setJobs([...jobs, newJob]);
     };
 
@@ -45,6 +45,7 @@ const JobBoard: React.FC = () => {
                     jobTitle={job.jobTitle}
                     location={job.location}
                     notes={job.notes}
+                    time={job.time}
                     />
                 ))}
             </div>

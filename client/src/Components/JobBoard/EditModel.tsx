@@ -1,19 +1,19 @@
 import React, {useState} from "react";
-import NewJob from "./NewJob";
+import EditJob from "./EditJob";
 
 interface ModalProps {
   isVisible: boolean;
   onClose: () => void;
-  addJob: (newJob: { jobTitle: string; companyName: string; location: string, notes: string, time: number }) => void;
+  editJob: (newJob: { jobTitle: string; companyName: string; location: string, notes: string, time: number }) => void;
 }
 
-const Modal: React.FC<ModalProps> = ({ isVisible, onClose, addJob }) => {
+const EditModal: React.FC<ModalProps> = ({ isVisible, onClose, editJob }) => {
   if (!isVisible) return null;
 
   return (
     <div style={styles.modalOverlay}>
       <div style={styles.modal}>
-        <NewJob addJob={addJob} onClose={onClose}/>
+        <EditJob editJob={editJob} onClose={onClose}/>
         <button style={styles.closeButton} onClick={onClose}>
           Close
         </button>
@@ -51,4 +51,4 @@ const styles: { [key: string]: React.CSSProperties } = {
   },
 };
 
-export default Modal;
+export default EditModal;

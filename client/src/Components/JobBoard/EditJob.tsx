@@ -1,11 +1,11 @@
 import React, {useState} from "react";
 
 type NewJobProps = {
-    addJob: (newJob: { jobTitle: string; companyName: string; location: string, notes: string, time: number}) => void;
+    editJob: (newJob: { jobTitle: string; companyName: string; location: string, notes: string, time: number}) => void;
     onClose: () => void;
 };
 
-const NewJob: React.FC<NewJobProps> = ({addJob, onClose}) => {
+const NewJob: React.FC<NewJobProps> = ({editJob, onClose}) => {
     const [formData, setFormData] = useState({
         companyName: "",
         jobTitle: "",
@@ -24,9 +24,9 @@ const NewJob: React.FC<NewJobProps> = ({addJob, onClose}) => {
     //   };
 
     //should all fields be required?
-    const handleAddJob = () => {
+    const handleEditJob = () => {
         if (formData.jobTitle && formData.companyName && formData.location && formData.notes) {
-          addJob(formData); 
+          editJob(formData); 
           setFormData({ jobTitle: '', companyName: '', location: '', notes: '', time: 0 });
           onClose();
         } else {
@@ -77,7 +77,7 @@ const NewJob: React.FC<NewJobProps> = ({addJob, onClose}) => {
             />
             </div>
             <div>
-                <button onClick={handleAddJob}>Add Job</button>
+                <button onClick={handleEditJob}>Edit Job</button>
             </div>
         </div>
     );

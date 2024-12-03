@@ -24,3 +24,15 @@
     font-size: 1em;
     color: #777;
   }
+
+  .job-edit {
+    justify-self: right;
+    background-color: #4CAF50;
+    padding: 5px 10px;
+    font-size: 16px;
+    cursor: pointer;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    user-select: none;
+  }
