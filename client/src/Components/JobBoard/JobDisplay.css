@@ -1,0 +1,26 @@
+.job-box {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 12px 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+  }
+  
+  .company-name {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #333;
+  }
+  
+  .job-title {
+    font-size: 1.2em;
+    margin-bottom: 4px;
+    color: #555;
+  }
+  
+  .location {
+    font-size: 1em;
+    color: #777;
+  }
