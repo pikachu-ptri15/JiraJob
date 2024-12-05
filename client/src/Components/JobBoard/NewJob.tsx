@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 
 type NewJobProps = {
-    addJob: (newJob: { jobTitle: string; companyName: string; location: string, notes: string }) => void;
+    addJob: (newJob: { jobTitle: string; companyName: string; location: string, notes: string, droppableId: string }) => void;
     onClose: () => void;
 };
 
@@ -11,6 +11,8 @@ const NewJob: React.FC<NewJobProps> = ({addJob, onClose}) => {
         jobTitle: "",
         location: "",
         notes: "",
+        droppableId: "applied-jobs",
+        
     });
 
     const handleInputChange = ( e: React.ChangeEvent<HTMLInputElement>) => {
@@ -26,7 +28,7 @@ const NewJob: React.FC<NewJobProps> = ({addJob, onClose}) => {
     const handleAddJob = () => {
         if (formData.jobTitle && formData.companyName && formData.location && formData.notes) {
           addJob(formData); 
-          setFormData({ jobTitle: '', companyName: '', location: '', notes: '' });
+          setFormData({ jobTitle: '', companyName: '', location: '', notes: '', droppableId: "applied-jobs" });
           onClose();
         } else {
           alert('Please fill out all fields.');

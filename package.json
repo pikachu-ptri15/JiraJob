@@ -21,6 +21,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "react": "^18.3.1",
+    "react-beautiful-dnd": "^13.1.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^7.0.1"
   },
@@ -30,6 +31,7 @@
     "@babel/preset-react": "^7.25.9",
     "@babel/preset-typescript": "^7.26.0",
     "@types/react": "^18.3.12",
+    "@types/react-beautiful-dnd": "^13.1.8",
     "@types/react-dom": "^18.3.1",
     "babel-loader": "^9.2.1",
     "css-loader": "^7.1.2",
