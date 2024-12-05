@@ -6,7 +6,7 @@
   }
   
   .top-space {
-    height: 20%;
+    min-height: 20%;
     background-color: white;
   }
   
@@ -37,7 +37,7 @@
   }
   
   .bottom-space {
-    height: 5%;
+    min-height: 5%;
     background-color: white;
   }
   
