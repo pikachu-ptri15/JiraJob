@@ -1,117 +1,164 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Column from "../Components/JobBoard/ProgressColumn";
 import Modal from "../Components/JobBoard/Modal";
-import NewJob from "../Components/JobBoard/NewJob";
 import JobDisplay from "../Components/JobBoard/JobDisplay";
-import '../Components/JobBoard/JobDisplay.css';
+import "../Components/JobBoard/JobDisplay.css";
+import "./JobBoard.css";
+import {
+  DragDropContext,
+  Droppable,
+  DroppableProvided,
+  DroppableProps,
+} from "react-beautiful-dnd";
 
+// React Beautiful DnD replacement for strict mode
+export const StrictModeDroppable = ({ children, ...props }: DroppableProps) => {
+  const [enabled, setEnabled] = useState(false);
+  useEffect(() => {
+    const animation = requestAnimationFrame(() => setEnabled(true));
+    return () => {
+      cancelAnimationFrame(animation);
+      setEnabled(false);
+    };
+  }, []);
+
+  if (!enabled) {
+    return null;
+  }
+  return <Droppable {...props}>{children}</Droppable>;
+};
 
 const JobBoard: React.FC = () => {
-    const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [jobs, setJobs] = useState<
+    {
+      jobTitle: string;
+      companyName: string;
+      location: string;
+      notes: string;
+      id: string;
+      droppableId: string;
+    }[]
+  >([]);
 
-    const showModal = () => setIsModalVisible(true);
-    const hideModal = () => setIsModalVisible(false);
+  const showModal = () => setIsModalVisible(true);
+  const hideModal = () => setIsModalVisible(false);
 
-    const [jobs, setJobs] = useState<{ jobTitle: string; companyName: string; location: string, notes: string }[]>([]);
+  const addJob = (newJob: {
+    jobTitle: string;
+    companyName: string;
+    location: string;
+    notes: string;
+    droppableId: string;
+  }) => {
+    const newJobWithId = { id: `job-${jobs.length + 1}`, ...newJob };
+    setJobs([...jobs, newJobWithId]);
+  };
 
-    const addJob = (newJob: { jobTitle: string; companyName: string; location: string, notes: string}) => {
-        setJobs([...jobs, newJob]);
-    };
+  // Dragging logic
+  const onDragEnd = (result: any) => {
+    const { source, destination } = result;
 
-    return (
-        <div style={styles.container}>
-      {/* Top White Space (20% of screen height) */}
-      <div style={styles.topSpace}></div>
+    if (!destination) return; // Reset if not dropped in an acceptable area
 
-      {/* Button to open the Modal, aligned to the left with 2% space */}
-      <div style={styles.buttonContainer}>
-        <button style={styles.modalButton} onClick={showModal}>
+    setJobs((prevJobs) => {
+      const draggedJobIndex = prevJobs.findIndex(
+        (job) =>
+          job.droppableId === source.droppableId &&
+          jobs.filter((j) => j.droppableId === source.droppableId)[
+            source.index
+          ]?.id === job.id
+      );
+
+      if (draggedJobIndex === -1) return prevJobs; // If the job is not found, return the state as is
+
+      const updatedJobs = Array.from(prevJobs);
+
+      const [removedJob] = updatedJobs.splice(draggedJobIndex, 1);
+
+      removedJob.droppableId = destination.droppableId;
+
+      updatedJobs.splice(destination.index, 0, removedJob);
+
+      return updatedJobs;
+    });
+  };
+
+  return (
+    <div className="job-board-container">
+      <div className="top-space"></div>
+      <div className="button-container">
+        <button className="modal-button" onClick={showModal}>
           Open Modal
         </button>
       </div>
+      <Modal isVisible={isModalVisible} onClose={hideModal} addJob={addJob} />
+      <DragDropContext onDragEnd={onDragEnd}>
+        <div className="columns-container">
+          <Column>
+            <StrictModeDroppable droppableId="applied-jobs" type="group">
+              {(provided: DroppableProvided) => (
+                <div
+                  className="job-list"
+                  {...provided.droppableProps}
+                  ref={provided.innerRef}
+                >
+                  <h1>Applied</h1>
+                  {jobs
+                    .filter((job) => job.droppableId === "applied-jobs")
+                    .map((job, index) => (
+                      <JobDisplay key={job.id} job={job} index={index} />
+                    ))}
+                  {provided.placeholder}
+                </div>
+              )}
+            </StrictModeDroppable>
+          </Column>
 
-      {/* Modal */}
-      <Modal isVisible={isModalVisible} onClose={hideModal} addJob={addJob}/>
+          <Column>
+            <StrictModeDroppable droppableId="interviewing-jobs" type="group">
+              {(provided: DroppableProvided) => (
+                <div
+                  className="job-list"
+                  {...provided.droppableProps}
+                  ref={provided.innerRef}
+                >
+                  <h1>Interviewing</h1>
+                  {jobs
+                    .filter((job) => job.droppableId === "interviewing-jobs")
+                    .map((job, index) => (
+                      <JobDisplay key={job.id} job={job} index={index} />
+                    ))}
+                  {provided.placeholder}
+                </div>
+              )}
+            </StrictModeDroppable>
+          </Column>
 
-      {/* Columns container (fills remaining space) */}
-      <div style={styles.columnsContainer}>
-        <Column>
-            <h1>Applied</h1>
-            <div className="job-list">
-                {jobs.map((job, index) => (
-                    <JobDisplay 
-                    key={index}
-                    companyName={job.companyName}
-                    jobTitle={job.jobTitle}
-                    location={job.location}
-                    notes={job.notes}
-                    />
-                ))}
-            </div>
-        </Column>
-
-        {/* Empty Column */}
-        <Column>
-            <h1>Interviewing</h1>
-        </Column>
-
-        <Column>
-            <h1>Outcome</h1>
-        </Column>
-      </div>
-
-      {/* Bottom White Space (5% of screen height) */}
-      <div style={styles.bottomSpace}></div>
+          <Column>
+            <StrictModeDroppable droppableId="outcome-jobs" type="group">
+              {(provided: DroppableProvided) => (
+                <div
+                  className="job-list"
+                  {...provided.droppableProps}
+                  ref={provided.innerRef}
+                >
+                  <h1>Outcome</h1>
+                  {jobs
+                    .filter((job) => job.droppableId === "outcome-jobs")
+                    .map((job, index) => (
+                      <JobDisplay key={job.id} job={job} index={index} />
+                    ))}
+                  {provided.placeholder}
+                </div>
+              )}
+            </StrictModeDroppable>
+          </Column>
+        </div>
+      </DragDropContext>
+      <div className="bottom-space"></div>
     </div>
   );
 };
-
-const styles: { [key: string]: React.CSSProperties } = {
-  container: {
-    display: "flex", // Flexbox layout to stack items vertically
-    flexDirection: "column", // Stack items in a column
-    height: "100vh", // Full screen height
-    margin: "0", // Remove margin
-  },
-  topSpace: {
-    height: "20%", // Top white space takes up 20% of the screen height
-    backgroundColor: "white", // Make it white
-  },
-  buttonContainer: {
-    position: "absolute",
-    top: "12%", // Adjust this to be higher if needed
-    left: "2%", // 2% white space from the left edge of the screen
-    },
-  modalButton: {
-    padding: "10px 20px",
-    fontSize: "16px",
-    cursor: "pointer",
-    backgroundColor: "#4CAF50",
-    color: "white",
-    border: "none",
-    borderRadius: "5px",
-  },
-  columnsContainer: {
-    display: "flex", // Flexbox layout to arrange columns horizontally
-    justifyContent: "space-between", // Space columns evenly
-    alignItems: "stretch", // Ensure columns stretch to the same height
-    width: "96%", // Columns container takes up 96% of the screen width
-    margin: "0 auto", // Center the columns container horizontally
-    flex: "1", // Take up the remaining space (after the top and bottom white spaces)
-    gap: "10px", // Space between columns
-  },
-  bottomSpace: {
-    height: "5%", // Bottom white space takes up 5% of the screen height
-    backgroundColor: "white", // Make it white
-  },
-  item: {
-    padding: "10px", // Padding for items inside the columns
-    backgroundColor: "#e0e0e0", // Background color for items
-    borderRadius: "4px", // Border radius for item styling
-    textAlign: "center", // Center the text inside items
-    marginBottom: "10px", // Adds 10px space between items inside each column
-  },
-};
-
 
 export default JobBoard;

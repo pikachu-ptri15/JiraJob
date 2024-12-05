@@ -1,0 +1,43 @@
+.job-board-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    margin: 0;
+  }
+  
+  .top-space {
+    height: 20%;
+    background-color: white;
+  }
+  
+  .button-container {
+    position: absolute;
+    top: 12%;
+    left: 2%;
+  }
+  
+  .modal-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+  }
+  
+  .columns-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    width: 96%;
+    margin: 0 auto;
+    flex: 1;
+    gap: 10px;
+  }
+  
+  .bottom-space {
+    height: 5%;
+    background-color: white;
+  }
+  

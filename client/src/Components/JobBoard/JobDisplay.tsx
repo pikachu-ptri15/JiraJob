@@ -1,22 +1,30 @@
-import React from 'react'
+import React from 'react';
+import { Draggable, DraggableProvided } from "react-beautiful-dnd";
+import './JobDisplay.css'; // Import the CSS file
 
-//type or interface?
 interface JobDisplayProps {
-    jobTitle: string;
-    companyName: string;
-    location: string;
-    notes: string;
-  }
+  job: { jobTitle: string; companyName: string; location: string; notes: string; id: string, droppableId: string };
+  index: number;
+}
 
-  const JobDisplay: React.FC<JobDisplayProps> = ({ jobTitle, companyName, location, notes }) => {
-    return (
-      <div className="job-box">
-        <p className="company-name">{companyName}</p>
-        <p className="job-title">{jobTitle}</p>
-        <p className="location">{location}</p>
-        <p className="notes">{notes}</p>
-      </div>
-    );
-  };
-  
-  export default JobDisplay;
+const JobDisplay: React.FC<JobDisplayProps> = ({ job, index }) => {
+  return (
+    <Draggable draggableId={job.id} index={index}>
+      {(provided: DraggableProvided) => (
+        <div
+          ref={provided.innerRef}
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+          className="job-box"
+        >
+          <div className="job-title">{job.jobTitle}</div>
+          <div className="company-name">{job.companyName}</div>
+          <div className="location">{job.location}</div>
+          <div className="notes">{job.notes}</div>
+        </div>
+      )}
+    </Draggable>
+  );
+};
+
+export default JobDisplay;
