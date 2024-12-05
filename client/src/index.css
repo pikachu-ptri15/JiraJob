@@ -103,3 +103,11 @@ body {
 .testImg {
   width: 1000px;
 }
+.login-btn {
+  border-radius: 5px;
+}
+
+.login-btn:hover {
+  background-color: white;
+  /* border-color: rgb(30, 0, 255); */
+}
