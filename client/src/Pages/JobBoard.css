@@ -11,7 +11,7 @@
   }
   
   .button-container {
-    position: absolute;
+    position: fixed;
     top: 12%;
     left: 2%;
   }
