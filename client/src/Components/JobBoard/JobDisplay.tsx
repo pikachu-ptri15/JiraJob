@@ -1,6 +1,7 @@
 import React from 'react';
 import { Draggable, DraggableProvided } from 'react-beautiful-dnd';
 import './JobDisplay.css'; // Import the CSS file
+import EditModal from './EditModal';
 
 interface JobDisplayProps {
   job: {
@@ -17,6 +18,7 @@ interface JobDisplayProps {
 const JobDisplay: React.FC<JobDisplayProps> = ({ job, index }) => {
   return (
     <div>
+      {/* <EditModal isVisible={isModalVisible} onClose={hideModal} addJob={addJob} /> */}
       <Draggable draggableId={job.id} index={index}>
         {(provided: DraggableProvided) => (
           <div

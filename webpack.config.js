@@ -18,7 +18,18 @@ module.exports = {
         test: /\.(ts|tsx)$/,
         exclude: /node_modules/,
         use: 'babel-loader'
-      }
+      },
+      {
+        test: /\.(png|jpe?g|gif|svg)$/i, // Handle image files
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[path][name].[ext]', // Keep original file structure
+            },
+          },
+        ],
+      },
     ]
   },
   plugins: [

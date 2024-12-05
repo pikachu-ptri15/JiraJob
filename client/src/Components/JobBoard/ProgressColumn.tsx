@@ -16,8 +16,6 @@ const styles: { [key: string]: React.CSSProperties } = {
     borderRadius: "4px",
     display: "flex",
     justifyContent: "center",
-    // marginBottom: "10px",
-    // maxHeight: "fit-content",
   },
 };
 
