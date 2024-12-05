@@ -12,6 +12,7 @@ const Splash: React.FC = (props: Props) => {
       >
         <h1>Splash Page!</h1>
       </div>
+      <img src={Background} alt = '' className='testImg'></img>
     </div>
   );
 };
