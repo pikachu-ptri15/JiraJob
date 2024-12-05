@@ -24,3 +24,9 @@
     font-size: 1em;
     color: #777;
   }
+
+  .notes {
+    font-size: 1em;
+    color: #999;
+    margin-top: 8px;
+}

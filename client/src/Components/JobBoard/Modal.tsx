@@ -4,7 +4,7 @@ import NewJob from "./NewJob";
 interface ModalProps {
   isVisible: boolean;
   onClose: () => void;
-  addJob: (newJob: { jobTitle: string; companyName: string; location: string, notes: string }) => void;
+  addJob: (newJob: { jobTitle: string; companyName: string; location: string, notes: string, droppableId: string}) => void;
 }
 
 const Modal: React.FC<ModalProps> = ({ isVisible, onClose, addJob }) => {
