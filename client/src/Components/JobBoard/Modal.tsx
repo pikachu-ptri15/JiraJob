@@ -15,7 +15,7 @@ const Modal: React.FC<ModalProps> = ({ isVisible, onClose, addJob }) => {
       <div style={styles.modal}>
         <NewJob addJob={addJob} onClose={onClose}/>
         <button style={styles.closeButton} onClick={onClose}>
-          Close
+          X
         </button>
       </div>
     </div>
@@ -35,19 +35,23 @@ const styles: { [key: string]: React.CSSProperties } = {
     alignItems: "center",
   },
   modal: {
-    backgroundColor: "white",
+    position: "relative", // To allow absolute positioning of the Close button inside it
+    backgroundColor: "#fff",
     padding: "20px",
     borderRadius: "8px",
     width: "300px",
-    textAlign: "center",
+    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
   },
   closeButton: {
-    backgroundColor: "#ff3b3b",
-    color: "white",
-    border: "none",
-    padding: "8px 16px",
-    borderRadius: "4px",
-    cursor: "pointer",
+    position: "absolute", // Position relative to modal
+    top: "5px", // 10px from the top of modalContent
+    right: "10px", // 10px from the right of modalContent
+    fontSize: "16px", // Size of the "X" button
+    background: "none", // Remove default background
+    border: "none", // Remove default border
+    color: "red", // Light gray color for the "X"
+    cursor: "pointer", // Pointer cursor on hover
+    padding: "5px", // Optional padding to make the button more clickable
   },
 };
 

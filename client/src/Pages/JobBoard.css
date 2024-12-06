@@ -6,7 +6,7 @@
   }
   
   .top-space {
-    height: 20%;
+    height: 0%;
     background-color: white;
   }
   
@@ -34,6 +34,7 @@
     margin: 0 auto;
     flex: 1;
     gap: 10px;
+    margin-top: 10%;
   }
   
   .bottom-space {
