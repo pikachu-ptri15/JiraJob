@@ -29,11 +29,13 @@
   .columns-container {
     display: flex;
     justify-content: space-between;
-    align-items: stretch;
+    /* align-items: stretch; */
     width: 96%;
     margin: 0 auto;
+    /* flex: clamp(1, fit-content, 1); */
     flex: 1;
     gap: 10px;
+    overflow-y: auto;
   }
   
   .bottom-space {
