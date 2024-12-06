@@ -124,7 +124,7 @@ const JobBoard: React.FC = () => {
       <div className="top-space"></div>
       <div className="button-container">
         <button className="modal-button" onClick={showModal}>
-          Open Modal
+          + New Job
         </button>
       </div>
       <Modal isVisible={isModalVisible} onClose={hideModal} addJob={addJob} />
