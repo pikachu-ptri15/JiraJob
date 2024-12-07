@@ -1,6 +1,6 @@
 import React from 'react';
 import { Draggable, DraggableProvided } from "react-beautiful-dnd";
-import './JobDisplay.css'; // Import the CSS file
+import './JobDisplay.css';
 
 interface JobDisplayProps {
   job: { jobTitle: string; companyName: string; location: string; notes: string; id: string, droppableId: string };
