@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import { Draggable, DraggableProvided } from "react-beautiful-dnd";
 import './JobDisplay.css';
 
