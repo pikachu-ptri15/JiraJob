@@ -16,6 +16,7 @@ const styles: { [key: string]: React.CSSProperties } = {
     borderRadius: "4px",
     display: "flex",
     justifyContent: "center",
+    flexDirection: "row"
     // height: "fit-content",
     // minHeight: "fit-content"
   },

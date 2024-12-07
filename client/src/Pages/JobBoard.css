@@ -2,17 +2,18 @@
     display: flex;
     flex-direction: column;
     height: 100vh;
+    min-height: fit-content;
     margin: 0;
   }
   
   .top-space {
-    min-height: 20%;
+    min-height: 10%;
     background-color: white;
   }
   
   .button-container {
-    position: fixed;
-    top: 12%;
+    position: absolute;
+    top: 6%;
     left: 2%;
   }
   
@@ -35,7 +36,6 @@
     /* flex: clamp(1, fit-content, 1); */
     flex: 1;
     gap: 10px;
-    overflow-y: auto;
   }
   
   .bottom-space {
