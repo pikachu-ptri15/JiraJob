@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Column from "../Components/JobBoard/ProgressColumn";
 import Modal from "../Components/JobBoard/Modal";
 import JobDisplay from "../Components/JobBoard/JobDisplay";
+import SaveButton from "../Components/JobBoard/SaveButton"
 import "../Components/JobBoard/JobDisplay.css";
 import "./JobBoard.css";
 import {
@@ -28,6 +29,9 @@ export const StrictModeDroppable = ({ children, ...props }: DroppableProps) => {
   return <Droppable {...props}>{children}</Droppable>;
 };
 
+
+
+
 const JobBoard: React.FC = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [jobs, setJobs] = useState<
@@ -40,6 +44,13 @@ const JobBoard: React.FC = () => {
       droppableId: string;
     }[]
   >([]);
+
+  useEffect(() => {
+    fetch("http://localhost:3001/get-jobs")
+      .then((res) => res.json())
+      .then((data) => setJobs(data.jobs))
+      .catch((err) => console.error("Error fetching jobs:", err));
+  }, []);
 
   const showModal = () => setIsModalVisible(true);
   const hideModal = () => setIsModalVisible(false);
@@ -84,15 +95,40 @@ const JobBoard: React.FC = () => {
     });
   };
 
+  const handleSaveAll = async () => {
+    try {
+      console.log('jobs', jobs)
+      const response = await fetch("http://localhost:3001/save-jobs", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ jobs }), 
+      });
+
+      const data = await response.json();
+
+      console.log('data', data);
+      if (!response.ok) {
+        throw new Error("Failed to save jobs");
+      }
+
+      console.log("Jobs saved successfully!");
+    } catch (error) {
+      console.error("Error saving jobs:", error);
+    }
+  };
+
   return (
     <div className="job-board-container">
       <div className="top-space"></div>
       <div className="button-container">
         <button className="modal-button" onClick={showModal}>
-          Open Modal
+          + New Job
         </button>
       </div>
       <Modal isVisible={isModalVisible} onClose={hideModal} addJob={addJob} />
+      <SaveButton jobs={jobs} onSave={handleSaveAll}/>
       <DragDropContext onDragEnd={onDragEnd}>
         <div className="columns-container">
           <Column>

@@ -6,7 +6,8 @@ module.exports = {
   mode: 'development',
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, 'dist'),
+    clean: true,
   },
   module: {
     rules: [
@@ -17,28 +18,21 @@ module.exports = {
       {
         test: /\.(ts|tsx)$/,
         exclude: /node_modules/,
-        use: 'babel-loader'
+        use: 'babel-loader',
       },
       {
-        test: /\.(png|jpe?g|gif|svg)$/i, // Handle image files
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              name: '[path][name].[ext]', // Keep original file structure
-            },
-          },
-        ],
+        test: /\.(png|jpe?g|gif|svg)$/i,
+        type: 'asset/resource',
       },
-    ]
+    ],
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './client/src/index.html'
-    })
+      template: './client/src/index.html',
+    }),
   ],
   resolve: {
-    extensions: ['.tsx', '.ts', '.js']
+    extensions: ['.tsx', '.ts', '.js'],
   },
   devServer: {
     static: {
@@ -50,7 +44,7 @@ module.exports = {
     open: true,
     proxy: [
       {
-        context: ['/**'],
+        context: ['/api', '/login', '/register', '/signup', '/board'],
         target: 'http://localhost:3001',
         secure: false,
       },
