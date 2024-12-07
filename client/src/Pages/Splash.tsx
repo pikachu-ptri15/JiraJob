@@ -18,7 +18,7 @@ const Splash: React.FC = (props: Props) => {
       <button className='button-12' onClick={handleClick}>Get Started</button>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Splash
+export default Splash;

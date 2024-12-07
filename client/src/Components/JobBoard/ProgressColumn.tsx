@@ -14,6 +14,9 @@ const styles: { [key: string]: React.CSSProperties } = {
     backgroundColor: "#d3d3d3",
     padding: "10px",
     borderRadius: "4px",
+    display: "flex",
+    justifyContent: "center",
+    flexDirection: "row"
   },
 };
 
