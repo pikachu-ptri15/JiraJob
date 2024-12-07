@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import './Login.css';
 
 const LogIn: React.FC = () => {
   const [username, setUsername] = useState('');
@@ -15,8 +16,7 @@ const LogIn: React.FC = () => {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-
-    setErrorMessage(''); 
+    setErrorMessage('');
 
     try {
 
@@ -73,7 +73,7 @@ const LogIn: React.FC = () => {
                 className="field"
               />
             </div>
-            <div className="field">
+            <div>
               <button type="submit" className="login-btn">
                 Login
               </button>
@@ -82,7 +82,9 @@ const LogIn: React.FC = () => {
           {errorMessage && <div style={{ color: 'red' }}>{errorMessage}</div>}
         </div>
         <div className="loginNewUser">
-          <a href="/signup">New User?</a>
+          <span>
+            New to JiraJob? <a href="/signup" className='signup-link'>Create new user</a>
+          </span>
         </div>
       </div>
     </div>

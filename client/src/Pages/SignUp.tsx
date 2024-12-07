@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
+import './SignUp.css'
 
 type Props = {};
 
@@ -27,7 +28,7 @@ const SignUp: React.FC = (props: Props) => {
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    
+
     setErrorMessage('');
     setSuccessMessage('');
 
@@ -116,7 +117,7 @@ const SignUp: React.FC = (props: Props) => {
               <input
                 type='password'
                 name='passwordCheck'
-                placeholder='Retype Password'
+                placeholder='Confirm Password'
                 value={passwordCheck}
                 onChange={handleInputChange}
                 required
@@ -124,7 +125,7 @@ const SignUp: React.FC = (props: Props) => {
                 className='field'
               />
             </div>
-            <div className='field'>
+            <div>
               <button type='submit' className='login-btn'>
                 Sign Up
               </button>
@@ -134,7 +135,7 @@ const SignUp: React.FC = (props: Props) => {
           {successMessage && <div style={{ color: 'green' }}>{successMessage}</div>}
         </div>
         <div className='loginNewUser'>
-          <a href='/login'>Sign In</a>
+          <span>Already have an account? <a href='/login' className='sign-in-link'>Sign In</a></span>
         </div>
       </div>
     </div>
