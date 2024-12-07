@@ -63,6 +63,65 @@ app.post('/login', async (req: Request, res: Response): Promise<void> => {
   }
 });
 
+app.get("/get-jobs", async (req, res) => {
+  try {
+    const result = await pool.query(`
+      SELECT job_id AS id, 
+             job_title AS "jobTitle", 
+             company_name AS "companyName", 
+             location, 
+             notes, 
+             droppable_id AS "droppableId" 
+      FROM jobs
+    `);
+    res.status(200).json({ jobs: result.rows });
+  } catch (error) {
+    console.error("Error fetching jobs:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+app.post("/save-jobs", async (req, res) => {
+  try {
+    const { jobs } = req.body;
+
+    if (!Array.isArray(jobs)) {
+      return res.status(400).json({ error: "Invalid job data" });
+    }
+
+    
+    const query = `
+      INSERT INTO jobs (job_id, job_title, company_name, location, notes, droppable_id)
+      VALUES 
+        ${jobs.map((_, i) => `($${i * 6 + 1}, $${i * 6 + 2}, $${i * 6 + 3}, $${i * 6 + 4}, $${i * 6 + 5}, $${i * 6 + 6})`).join(", ")}
+      ON CONFLICT (job_id) 
+      DO UPDATE SET 
+        job_title = EXCLUDED.job_title,
+        company_name = EXCLUDED.company_name,
+        location = EXCLUDED.location,
+        notes = EXCLUDED.notes,
+        droppable_id = EXCLUDED.droppable_id;
+    `;
+
+    const values = jobs.flatMap((job) => [
+      job.id,
+      job.jobTitle,
+      job.companyName,
+      job.location,
+      job.notes,
+      job.droppableId,
+    ]);
+
+    await pool.query(query, values);
+
+    res.status(200).json({ message: "Jobs updated successfully" });
+  } catch (error) {
+    console.error("Error updating jobs:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+
 // Serve your built React application
 app.get('*', (req: Request, res: Response) => {
   res.sendFile(path.resolve(__dirname, '../dist/index.html'));
