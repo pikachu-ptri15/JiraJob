@@ -125,7 +125,6 @@ const SignUp: React.FC = (props: Props) => {
                 className='field'
               />
             </div>
-            {/* <div className='field'> */}
             <div>
               <button type='submit' className='login-btn'>
                 Sign Up
