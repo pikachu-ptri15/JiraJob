@@ -20,6 +20,7 @@
     font-size: large;
     border-radius: 10px;
     border: 1px solid white;
+    border: none;
     /* background: rgb(76, 44, 163); */
     /* background: linear-gradient(270deg, rgb(76, 44, 163), rgb(128, 128, 128)); */
     background: linear-gradient(270deg, rgb(76, 44, 163), rgb(139, 69, 255), rgb(76, 44, 163));

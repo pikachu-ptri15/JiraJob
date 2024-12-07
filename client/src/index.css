@@ -1,11 +1,11 @@
-body {
+ body {
   font-family: Arial, Helvetica, sans-serif;
   margin: 0;
   padding: 0;
   text-align: center;
 }
 
-.loginWrapper {
+/* .loginWrapper {
   background-color: rgb(255, 255, 255);
   position: absolute;
   width: 100%;
@@ -33,6 +33,7 @@ body {
   width: 100%;
   height: fit-content;
   background-color: #4CAF50;
+  background-color: rgb(76, 44, 163);
   justify-self: center;
   align-self: center;
 }
@@ -69,6 +70,7 @@ body {
   font-size: 24px;
   margin-top: 10px;
   margin-bottom: 10px;
+<<<<<<< HEAD
 }
 
 .jobEditBut {
@@ -90,3 +92,6 @@ body {
 .login-btn:hover {
   background-color: white;
 }
+=======
+} */
+>>>>>>> 341796cd (last minute login + signup styling)
